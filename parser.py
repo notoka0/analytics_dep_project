@@ -36,17 +36,16 @@ async def main():
                             has_link = 1
                             break
 
-                target_reactions = {'👍': 0, '👎': 0, '🤬': 0, '🥰': 0, '😢': 0, '🤡': 0, '🔥': 0}
+                all_reactions = {}
 
                 if message.reactions:
                     for reaction_count in message.reactions.results:
                         if hasattr(reaction_count.reaction, 'emoticon'):
                             emoji = reaction_count.reaction.emoticon
-                            if emoji in target_reactions:
-                                target_reactions[emoji] = reaction_count.count
+                            all_reactions[emoji] = reaction_count.count
                 
                 # Зберігає id, дату, кількість символів, перегляди, наявність зображення, наявність посилання, поставлені реакції та їх кількість
-                save_post(post_id, post_date, char_count, views, has_image, has_link, target_reactions)
+                save_post(post_id, post_date, char_count, views, has_image, has_link, all_reactions)
 
             print("Базу даних оновлено.")
             print("Очікування 15 хвилин до наступного запуску...")
